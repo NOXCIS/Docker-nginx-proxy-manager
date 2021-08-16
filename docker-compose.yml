@@ -1,0 +1,43 @@
+version: "3"
+services:
+  app:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      # Public HTTP Port:
+      - '80:80'
+      # Public HTTPS Port:
+      - '443:443'
+      # Admin Web Port:
+      - '81:81'
+    environment:
+      # These are the settings to access your db
+      DB_MYSQL_HOST: "db"
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: "nox"
+      DB_MYSQL_PASSWORD: "sm0b0uG9gfZTVKFQ"
+      DB_MYSQL_NAME: "npm"
+      # If you would rather use Sqlite uncomment this
+      # and remove all DB_MYSQL_* lines above
+      # DB_SQLITE_FILE: "/data/database.sqlite"
+      # Uncomment this if IPv6 is not enabled on your host
+      # DISABLE_IPV6: 'true'
+    volumes:
+      - ./data/nginx-proxy-manager:/data
+      - ./letsencrypt:/etc/letsencrypt
+    depends_on:
+      - db
+  db:
+    image: yobasystems/alpine-mariadb:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+      MYSQL_DATABASE: "npm"
+      MYSQL_USER: "nox"
+      MYSQL_PASSWORD: "sm0b0uG9gfZTVKFQ"
+    volumes:
+      - ./data/mariadb:/var/lib/mysql
+networks:
+  default:
+    external:
+      name: pihole_private_network
