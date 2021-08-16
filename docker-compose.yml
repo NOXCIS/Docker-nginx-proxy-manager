@@ -15,7 +15,7 @@ services:
       DB_MYSQL_HOST: "db"
       DB_MYSQL_PORT: 3306
       DB_MYSQL_USER: "nox"
-      DB_MYSQL_PASSWORD: "sm0b0uG9gfZTVKFQ"
+      DB_MYSQL_PASSWORD: "changeme"
       DB_MYSQL_NAME: "npm"
       # If you would rather use Sqlite uncomment this
       # and remove all DB_MYSQL_* lines above
@@ -34,7 +34,7 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
       MYSQL_DATABASE: "npm"
       MYSQL_USER: "nox"
-      MYSQL_PASSWORD: "sm0b0uG9gfZTVKFQ"
+      MYSQL_PASSWORD: "changeme"
     volumes:
       - ./data/mariadb:/var/lib/mysql
 networks:
